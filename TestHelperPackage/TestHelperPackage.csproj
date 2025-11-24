@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>TestHelperPackage</PackageId>
+		<Version>1.0.1</Version>
+		<Authors>tenPro4</Authors>
+		<RepositoryUrl>https://github.com/tenPro4/TestHelperPackage</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/tenPro4/TestHelperPackage</PackageProjectUrl>
+		<Description>Test Helper Package</Description>
+	</PropertyGroup>
+</Project>
