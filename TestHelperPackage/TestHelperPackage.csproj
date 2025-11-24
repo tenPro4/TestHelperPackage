@@ -8,7 +8,7 @@
 
 	<PropertyGroup>
 		<PackageId>TestHelperPackage</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>tenPro4</Authors>
 		<RepositoryUrl>https://github.com/tenPro4/TestHelperPackage</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/tenPro4/TestHelperPackage</PackageProjectUrl>

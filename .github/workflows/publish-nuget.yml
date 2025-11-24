@@ -1,0 +1,49 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: windows-latest
+
+    steps:
+      # 1. Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Setup .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.0
+
+      # 3. Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # 4. 读取 csproj 中的 Version
+      - name: Get Package Version from csproj
+        id: get_version
+        run: |
+          VERSION=$(xmllint --xpath "string(//Project/PropertyGroup/Version)" ./TestHelperPackage/TestHelperPackage.csproj)
+          echo "Package version from csproj: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # 5. Pack NuGet package（使用 csproj 中的版本号）
+      - name: Pack NuGet package
+        run: |
+          dotnet pack ./TestHelperPackage/TestHelperPackage.csproj -c Release /p:PackageVersion=$VERSION
+
+      # 6. Push to GitHub Packages
+      - name: Push NuGet package
+        run: |
+          dotnet nuget push "TestHelperPackage/bin/Release/*.nupkg" \
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
